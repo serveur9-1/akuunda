@@ -27,33 +27,6 @@ Structure du dépôt
 - README.md — ce fichier
 
 
-Installation et démarrage local (rapide)
-----------------------------------------
-1. Cloner le repo
-   git clone https://github.com/David-akuundapay/akuunda-wallet.git
-   cd akuunda-wallet
-
-2. Préparer la base de données (ex. PostgreSQL via Docker)
-   docker run --name akuunda-postgres -e POSTGRES_USER=akuunda -e POSTGRES_PASSWORD=changeme -e POSTGRES_DB=akuunda -p 5432:5432 -d postgres:15
-
-3. Exporter les variables d'environnement (ou créer un fichier .env basé sur .env.example)
-   export SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/akuunda
-   export SPRING_DATASOURCE_USERNAME=akuunda
-   export SPRING_DATASOURCE_PASSWORD=changeme
-   export SERVER_PORT=8080
-
-4. Construire et lancer
-   chmod +x mvnw
-   ./mvnw clean package
-   # ou lancer directement
-   ./mvnw spring-boot:run
-   # ou exécuter le jar
-   java -jar target/*.jar
-
-5. Vérifier
-   - Health : http://localhost:8080/actuator/health (si actuator activé)
-   - Swagger / OpenAPI : http://localhost:8080/swagger-ui.html (si présent)
-
 Tests
 -----
 - Lancer la suite de tests : ./mvnw test
