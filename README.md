@@ -26,33 +26,6 @@ Structure du dépôt
 - src/main/resources — configuration (application.yml/properties)
 - README.md — ce fichier
 
-Variables d'environnement (exemples)
-------------------------------------
-Les noms réels peuvent varier selon le code : vérifie `src/main/resources` et le code pour les propriétés exactes.
-
-**Base de données :**
-- SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/akuunda
-- SPRING_DATASOURCE_USERNAME=akuunda
-- SPRING_DATASOURCE_PASSWORD=changeme
-- SPRING_JPA_HIBERNATE_DDL_AUTO=update
-
-**Serveur :**
-- SERVER_PORT=8080
-
-**Sécurité (Keycloak) :**
-- KEYCLOAK_ISSUER_URI=https://gestionsecu.akuunda-pay.io/realms/akuunda-realm
-- JWT_SECRET=changeme (si authentication JWT utilisée)
-
-**YellowCard :**
-- YELLOWCARD_API_URL=https://api.yellowcard.io
-- YELLOWCARD_API_KEY=...
-
-**Guardarian :**
-- GUARDIAN_API_URL=https://api.guardarian.com/v1
-- GUARDIAN_API_KEY=...
-
-**Currency Freaks :**
-- CURRENCY_FREAKS_API_KEY=...
 
 Installation et démarrage local (rapide)
 ----------------------------------------
