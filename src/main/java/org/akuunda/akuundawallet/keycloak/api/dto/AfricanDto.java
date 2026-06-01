@@ -1,0 +1,16 @@
+package org.akuunda.akuundawallet.keycloak.api.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class AfricanDto {
+
+    private String mssidn;
+    private boolean african;
+}

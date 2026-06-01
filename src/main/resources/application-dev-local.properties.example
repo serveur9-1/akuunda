@@ -1,0 +1,2 @@
+# Optionnel : copier en application-dev-local.properties pour surcharger le mot de passe en local.
+# spring.datasource.password=

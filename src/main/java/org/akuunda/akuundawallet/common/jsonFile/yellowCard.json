@@ -1,0 +1,651 @@
+{
+  "info": {
+    "_postman_id": "1189a342-da21-41c9-93d7-29461c65df46",
+    "name": "Yellow card-Akuunda Pay",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "8830876"
+  },
+  "item": [
+    {
+      "name": "https://sandbox.api.yellowcard.io/business/payments",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const apiKey = '2a10c8cb5b2a22d9ba65645457b4e02a';",
+              "const apiSecret = '288d1fb9745f417c7fb29afa8a7bed04c6f07d71b165fcde769ff1ec7168b0a8';",
+              "const method = pm.request.method;",
+              "const path = '/' + pm.request.url.path.join('/');",
+              "const timestamp = new Date().toISOString();",
+              "",
+              "let message = timestamp + path + method;",
+              "",
+              "// Pas de hash pour GET",
+              "const signature = CryptoJS.HmacSHA256(message, apiSecret);",
+              "const signatureBase64 = CryptoJS.enc.Base64.stringify(signature);",
+              "",
+              "pm.environment.set('timestamp', timestamp);",
+              "pm.environment.set('authorizationHeader', `YcHmacV1 ${apiKey}:${signatureBase64}`);"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "X-YC-Timestamp",
+            "value": "{{timestamp}}",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "{{authorizationHeader}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sandbox.api.yellowcard.io/business/payments",
+          "protocol": "https",
+          "host": [
+            "sandbox",
+            "api",
+            "yellowcard",
+            "io"
+          ],
+          "path": [
+            "business",
+            "payments"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "https://sandbox.api.yellowcard.io/business/account",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const apiKey = '2a10c8cb5b2a22d9ba65645457b4e02a';",
+              "const apiSecret = '288d1fb9745f417c7fb29afa8a7bed04c6f07d71b165fcde769ff1ec7168b0a8';",
+              "const method = pm.request.method;",
+              "const path = '/' + pm.request.url.path.join('/');",
+              "const timestamp = new Date().toISOString();",
+              "",
+              "let message = timestamp + path + method;",
+              "",
+              "// Pas de hash pour GET",
+              "const signature = CryptoJS.HmacSHA256(message, apiSecret);",
+              "const signatureBase64 = CryptoJS.enc.Base64.stringify(signature);",
+              "",
+              "pm.environment.set('timestamp', timestamp);",
+              "pm.environment.set('authorizationHeader', `YcHmacV1 ${apiKey}:${signatureBase64}`);"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "X-YC-Timestamp",
+            "value": "{{timestamp}}",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "{{authorizationHeader}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sandbox.api.yellowcard.io/business/account",
+          "protocol": "https",
+          "host": [
+            "sandbox",
+            "api",
+            "yellowcard",
+            "io"
+          ],
+          "path": [
+            "business",
+            "account"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Off-Ramp--payments",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const apiKey = '2a10c8cb5b2a22d9ba65645457b4e02a';",
+              "const apiSecret = '288d1fb9745f417c7fb29afa8a7bed04c6f07d71b165fcde769ff1ec7168b0a8';",
+              "const method = pm.request.method;",
+              "const path = '/' + pm.request.url.path.join('/');",
+              "const timestamp = new Date().toISOString();",
+              "",
+              "let message = timestamp + path + method;",
+              "",
+              "// Ajout du hash du body si POST",
+              "if (method === \"POST\") {",
+              "    const body = pm.request.body?.raw || \"\";",
+              "    const bodyHash = CryptoJS.SHA256(body).toString(CryptoJS.enc.Base64);",
+              "    message += bodyHash;",
+              "}",
+              "",
+              "const signature = CryptoJS.HmacSHA256(message, apiSecret);",
+              "const signatureBase64 = CryptoJS.enc.Base64.stringify(signature);",
+              "",
+              "pm.environment.set('timestamp', timestamp);",
+              "pm.environment.set('authorizationHeader', `YcHmacV1 ${apiKey}:${signatureBase64}`);"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "X-YC-Timestamp",
+            "value": "{{timestamp}}",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "{{authorizationHeader}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sequenceId\": \"akuunda-withdraw-001\",\n  \"channelId\": \"33a82864-6460-43d7-9fc0-911f9bd8d50a\",\n  \"currency\": \"XOF\",\n  \"country\": \"CI\",\n  \"amount\": 20,\n  \"reason\": \"entertainment\",\n  \"forceAccept\": true,\n  \"sender\": {\n    \"name\": \"David Aman\",\n    \"country\": \"CI\",\n    \"phone\": \"+2250700123456\",\n    \"address\": \"Abidjan, Cocody\",\n    \"dob\": \"01/01/1990\",\n    \"email\": \"david@akuunda-pay.io\",\n    \"idNumber\": \"CI123456789\",\n    \"idType\": \"national_id\"\n  },\n  \"destination\": {\n    \"accountNumber\": \"+2250700123456\",\n    \"accountType\": \"momo\",\n    \"networkId\": \"8d18204e-b51f-4554-815d-71586d0dac13\",\n    \"accountName\": \"David Aman\"\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sandbox.api.yellowcard.io/business/payments",
+          "protocol": "https",
+          "host": [
+            "sandbox",
+            "api",
+            "yellowcard",
+            "io"
+          ],
+          "path": [
+            "business",
+            "payments"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "https://sandbox.api.yellowcard.io/business/networks",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const apiKey = '2a10c8cb5b2a22d9ba65645457b4e02a';",
+              "const apiSecret = '288d1fb9745f417c7fb29afa8a7bed04c6f07d71b165fcde769ff1ec7168b0a8';",
+              "const method = pm.request.method;",
+              "const path = '/' + pm.request.url.path.join('/');",
+              "const timestamp = new Date().toISOString();",
+              "",
+              "let message = timestamp + path + method;",
+              "",
+              "// Pas de hash pour GET",
+              "const signature = CryptoJS.HmacSHA256(message, apiSecret);",
+              "const signatureBase64 = CryptoJS.enc.Base64.stringify(signature);",
+              "",
+              "pm.environment.set('timestamp', timestamp);",
+              "pm.environment.set('authorizationHeader', `YcHmacV1 ${apiKey}:${signatureBase64}`);"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "X-YC-Timestamp",
+            "value": "{{timestamp}}",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "{{authorizationHeader}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sandbox.api.yellowcard.io/business/networks",
+          "protocol": "https",
+          "host": [
+            "sandbox",
+            "api",
+            "yellowcard",
+            "io"
+          ],
+          "path": [
+            "business",
+            "networks"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "https://sandbox.api.yellowcard.io/business/collections/",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const apiKey = '2a10c8cb5b2a22d9ba65645457b4e02a';",
+              "const apiSecret = '288d1fb9745f417c7fb29afa8a7bed04c6f07d71b165fcde769ff1ec7168b0a8';",
+              "const method = pm.request.method;",
+              "const path = '/' + pm.request.url.path.join('/');",
+              "const timestamp = new Date().toISOString();",
+              "",
+              "let message = timestamp + path + method;",
+              "",
+              "// Pas de hash pour GET",
+              "const signature = CryptoJS.HmacSHA256(message, apiSecret);",
+              "const signatureBase64 = CryptoJS.enc.Base64.stringify(signature);",
+              "",
+              "pm.environment.set('timestamp', timestamp);",
+              "pm.environment.set('authorizationHeader', `YcHmacV1 ${apiKey}:${signatureBase64}`);"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "X-YC-Timestamp",
+            "value": "{{timestamp}}",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "{{authorizationHeader}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sandbox.api.yellowcard.io/business/collections/",
+          "protocol": "https",
+          "host": [
+            "sandbox",
+            "api",
+            "yellowcard",
+            "io"
+          ],
+          "path": [
+            "business",
+            "collections",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "On-Ramp--collections",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const apiKey = '2a10c8cb5b2a22d9ba65645457b4e02a';",
+              "const apiSecret = '288d1fb9745f417c7fb29afa8a7bed04c6f07d71b165fcde769ff1ec7168b0a8';",
+              "const method = pm.request.method;",
+              "const path = '/' + pm.request.url.path.join('/');",
+              "const timestamp = new Date().toISOString();",
+              "",
+              "let message = timestamp + path + method;",
+              "",
+              "if (method === 'POST' || method === 'PUT') {",
+              "    const rawBody = pm.request.body ? pm.request.body.raw : '';",
+              "    const hash = CryptoJS.SHA256(rawBody);",
+              "    const bodyHash = CryptoJS.enc.Base64.stringify(hash);",
+              "    message += bodyHash;",
+              "}",
+              "",
+              "const signature = CryptoJS.HmacSHA256(message, apiSecret);",
+              "const signatureBase64 = CryptoJS.enc.Base64.stringify(signature);",
+              "",
+              "pm.environment.set('timestamp', timestamp);",
+              "pm.environment.set('authorizationHeader', `YcHmacV1 ${apiKey}:${signatureBase64}`);",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "X-YC-Timestamp",
+            "value": "{{timestamp}}",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "{{authorizationHeader}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"channelId\": \"2452c27c-7c49-442c-b6f8-cde03f03f9ba\",\n  \"sequenceId\": \"akuunda-deposit-001\",\n  \"localAmount\": 10000,\n  \"forceAccept\": true,\n  \"redirectUrl\": \"https://akuunda-pay.io/retour\",\n  \"customerType\": \"retail\",\n  \"recipient\": {\n    \"name\": \"David Aman\",\n    \"phone\": \"+2250700123456\",\n    \"email\": \"david@akuunda-pay.io\",\n    \"country\": \"CI\",\n    \"address\": \"Abidjan, Cocody\",\n    \"dob\": \"01/01/1990\",\n    \"idNumber\": \"CI123456789\",\n    \"idType\": \"national_id\"\n  },\n  \"source\": {\n    \"accountNumber\": \"+2250700123456\",\n    \"accountType\": \"mobile_money\",\n    \"networkId\": \"wave_ci\",\n    \"accountName\": \"David Aman\",\n    \"phoneNumber\": \"+2250700123456\"\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sandbox.api.yellowcard.io/business/collections",
+          "protocol": "https",
+          "host": [
+            "sandbox",
+            "api",
+            "yellowcard",
+            "io"
+          ],
+          "path": [
+            "business",
+            "collections"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "https://sandbox.api.yellowcard.io/business/channels",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const apiKey = '2a10c8cb5b2a22d9ba65645457b4e02a';",
+              "const apiSecret = '288d1fb9745f417c7fb29afa8a7bed04c6f07d71b165fcde769ff1ec7168b0a8';",
+              "const method = pm.request.method;",
+              "const path = '/' + pm.request.url.path.join('/');",
+              "const timestamp = new Date().toISOString();",
+              "",
+              "let message = timestamp + path + method;",
+              "",
+              "// Pas de hash pour GET",
+              "const signature = CryptoJS.HmacSHA256(message, apiSecret);",
+              "const signatureBase64 = CryptoJS.enc.Base64.stringify(signature);",
+              "",
+              "pm.environment.set('timestamp', timestamp);",
+              "pm.environment.set('authorizationHeader', `YcHmacV1 ${apiKey}:${signatureBase64}`);"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "X-YC-Timestamp",
+            "value": "{{timestamp}}",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "{{authorizationHeader}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sandbox.api.yellowcard.io/business/channels",
+          "protocol": "https",
+          "host": [
+            "sandbox",
+            "api",
+            "yellowcard",
+            "io"
+          ],
+          "path": [
+            "business",
+            "channels"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "https://sandbox.api.yellowcard.io/business/channels/crypto",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const apiKey = '2a10c8cb5b2a22d9ba65645457b4e02a';",
+              "const apiSecret = '288d1fb9745f417c7fb29afa8a7bed04c6f07d71b165fcde769ff1ec7168b0a8';",
+              "const method = pm.request.method;",
+              "const path = '/' + pm.request.url.path.join('/');",
+              "const timestamp = new Date().toISOString();",
+              "",
+              "let message = timestamp + path + method;",
+              "",
+              "// Pas de hash pour GET",
+              "const signature = CryptoJS.HmacSHA256(message, apiSecret);",
+              "const signatureBase64 = CryptoJS.enc.Base64.stringify(signature);",
+              "",
+              "pm.environment.set('timestamp', timestamp);",
+              "pm.environment.set('authorizationHeader', `YcHmacV1 ${apiKey}:${signatureBase64}`);"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "X-YC-Timestamp",
+            "value": "{{timestamp}}",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "{{authorizationHeader}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sandbox.api.yellowcard.io/business/channels/crypto",
+          "protocol": "https",
+          "host": [
+            "sandbox",
+            "api",
+            "yellowcard",
+            "io"
+          ],
+          "path": [
+            "business",
+            "channels",
+            "crypto"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
